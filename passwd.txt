@@ -1,0 +1,6 @@
+jjohn;1234;Jack Johnston;Computer Science;Dr. Kimm;
+nbuse;1234;Nathaniel Busedu;Computer Science;Dr. Kimm;
+jrock;1234;Jaryd Rockman;Computer Science;Dr. Kimm;
+tblev;1234;Tyler Blevins;Computer Science;Dr. Kimm;
+dcroc;1234;Denzel Crocker;Computer Science;Dr. Kimm;
+
