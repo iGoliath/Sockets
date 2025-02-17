@@ -12,7 +12,7 @@ void error(char *msg) {
 }
 
 char fileEntries[25][20];
-const char *accessMessage = "Welcome to CPSC445-Comp Networking Class\nYou are invited to use %s's Machine!";
+const char *accessMessage = "Welcome to CPSC445-Comp Networking Class\nYou are invited to use %s's Machine!\n";
 
 void* createClientInstance(void* args) {
    

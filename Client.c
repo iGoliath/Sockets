@@ -3,6 +3,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <termios.h>
+#include <unistd.h>
 
 void error(char *msg) {
     perror(msg);
@@ -35,6 +37,9 @@ int main(int argc, char *argv[]) {
     serv_addr.sin_port = htons(portno);
     if (connect(sockfd,(struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     error("ERROR connecting");
+    struct termios old_term, new_term;
+    int x = 0;
+    char ch;
     for (int i = 0; i < 3; i++) { 
     printf("\n\nWelcome to the Computer Science Department\n\nLogin: ");
     bzero(buffer, 256);
@@ -44,7 +49,17 @@ int main(int argc, char *argv[]) {
     error("ERROR writing to socket");
     bzero(buffer, 256);
     printf("Password: ");
-    fgets(buffer, 255, stdin);
+    tcgetattr(STDIN_FILENO, &old_term);
+    new_term = old_term;
+    new_term.c_lflag &= ~(ECHO);
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &new_term);
+    x = 0;
+    while((ch = getchar()) != '\n') {
+       buffer[x++] = ch;
+    }
+    buffer[x] = '\0';
+    printf("\n");
+    tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
     n = write(sockfd, buffer, strlen(buffer));
     bzero(buffer, 256);
     n = read(sockfd, buffer, 255);
